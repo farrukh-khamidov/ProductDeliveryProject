@@ -1,0 +1,65 @@
+﻿<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="fragments/header::page_head('Regions')"></head>
+
+<body>
+    <!-- Pre-loader start -->
+    <div th:replace="fragments/preloader::preloader"></div>
+    <!-- Pre-loader end -->
+    <div id="pcoded" class="pcoded">
+        <div class="pcoded-overlay-box"></div>
+        <div class="pcoded-container navbar-wrapper">
+
+            <nav th:replace="fragments/navbar::navbar"></nav>
+
+            <div class="pcoded-main-container">
+                <div class="pcoded-wrapper">
+                    <nav th:replace="fragments/sidebar :: sidebar"></nav>
+                    <div class="pcoded-content">
+                        <div class="pcoded-inner-content">
+                            <div class="main-body">
+                                <div class="page-wrapper">
+
+                                    <div class="page-body">
+                                        <div class="card">
+                                            <div class="card-header">
+                                                <h5>Regions</h5>
+                                                <a th:href="@{regions/add}" class="btn btn-primary waves-effect waves-light f-right d-inline-block md-trigger" >
+                                                        <i class="icofont icofont-plus m-r-5"></i> Add Region
+                                                </a>
+                                            </div>
+                                            <div class="card-block table-border-style">
+                                                <div class="table-responsive">
+                                                    <table class="table table-hover">
+                                                        <thead>
+                                                        <tr>
+                                                            <th>#</th>
+                                                            <th>Name</th>
+
+                                                        </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                        <tr th:each="region: ${regions}">
+                                                            <th scope="row">[[${region.id}]]</th>
+                                                            <td>[[${region.name}]]</td>
+                                                        </tr>
+
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+<div th:replace="fragments/footer::footer"></div>
+</html>

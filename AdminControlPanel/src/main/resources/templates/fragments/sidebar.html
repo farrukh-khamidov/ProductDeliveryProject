@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<body>
+<nav class="pcoded-navbar" th:fragment="sidebar">
+    <div class="pcoded-inner-navbar main-menu">
+        <div class="pcoded-navigatio-lavel">Admin Control Panel</div>
+        <ul class="pcoded-item pcoded-left-item">
+
+            <li class="">
+                <a th:href="@{/regions}">
+                    <span class="pcoded-micon"><i class="feather icon-menu"></i></span>
+                    <span class="pcoded-mtext">Regions</span>
+                </a>
+            </li>
+            <li class="">
+                <a th:href="@{/places}">
+                    <span class="pcoded-micon"><i class="feather icon-menu"></i></span>
+                    <span class="pcoded-mtext">Places</span>
+                </a>
+            </li>
+            <li class="pcoded-hasmenu">
+                <a href="javascript:void(0)">
+                    <span class="pcoded-micon"><i class="feather icon-layers"></i></span>
+                    <span class="pcoded-mtext">Control Admins</span>
+                </a>
+                <ul class="pcoded-submenu">
+                    <li class=" ">
+                        <a th:href="@{/admins}">
+                            <span class="pcoded-mtext">Admins</span>
+                        </a>
+                    </li>
+                    <li class=" ">
+                        <a href="widget-data.htm">
+                            <span class="pcoded-mtext">Roles</span>
+                        </a>
+                    </li>
+                    <li class=" ">
+                        <a href="widget-chart.htm">
+                            <span class="pcoded-mtext">Permissions</span>
+                        </a>
+                    </li>
+
+                </ul>
+            </li>
+        </ul>
+        <div class="pcoded-navigatio-lavel">User Control Panel</div>
+        <ul class="pcoded-item pcoded-left-item">
+            <li class="pcoded-hasmenu">
+                <a href="javascript:void(0)">
+                    <span class="pcoded-micon"><i class="feather icon-box"></i></span>
+                    <span class="pcoded-mtext">Users</span>
+                </a>
+            </li>
+            <li class=" ">
+                <a href="animation.htm">
+                    <span class="pcoded-micon"><i class="feather icon-aperture rotate-refresh"></i><b>A</b></span>
+                    <span class="pcoded-mtext">Products</span>
+                </a>
+            </li>
+            <li class=" ">
+                <a href="animation.htm">
+                    <span class="pcoded-micon"><i class="feather icon-aperture rotate-refresh"></i><b>A</b></span>
+                    <span class="pcoded-mtext">Offers</span>
+                </a>
+            </li>
+            <li class=" ">
+                <a href="animation.htm">
+                    <span class="pcoded-micon"><i class="feather icon-aperture rotate-refresh"></i><b>A</b></span>
+                    <span class="pcoded-mtext">Request</span>
+                </a>
+            </li>
+
+        </ul>
+
+    </div>
+</nav>
+</body>
+</html>

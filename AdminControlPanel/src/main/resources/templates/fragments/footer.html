@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<div th:fragment="footer">
+    <!-- Required Jquery -->
+    <script type="text/javascript" th:src="@{/bower_components/jquery/js/jquery.min.js}"></script>
+    <script type="text/javascript" th:src="@{/bower_components/jquery-ui/js/jquery-ui.min.js}"></script>
+    <script type="text/javascript" th:src="@{/bower_components/popper.js/js/popper.min.js}"></script>
+    <script type="text/javascript" th:src="@{/bower_components/bootstrap/js/bootstrap.min.js}"></script>
+    <!-- jquery slimscroll js -->
+    <script type="text/javascript" th:src="@{/bower_components/jquery-slimscroll/js/jquery.slimscroll.js}"></script>
+    <!-- modernizr js -->
+    <script type="text/javascript" th:src="@{/bower_components/modernizr/js/modernizr.js}"></script>
+    <!-- Chart js -->
+    <script th:src="@{/assets/js/jquery.mCustomScrollbar.concat.min.js}"></script>
+    <script type="text/javascript" th:src="@{/assets/js/SmoothScroll.js}"></script>
+    <script th:src="@{/assets/js/pcoded.min.js}"></script>
+    <!-- custom js -->
+    <script th:src="@{/assets/js/vartical-layout.min.js}"></script>
+    <script type="text/javascript" th:src="@{/assets/pages/dashboard/custom-dashboard.js}"></script>
+    <script type="text/javascript" th:src="@{/assets/js/script.min.js}"></script>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async="" src="https://www.googletagmanager.com/gtag/js?id=UA-23581568-13"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'UA-23581568-13');
+    </script>
+</div>
+</html>
