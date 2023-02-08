@@ -5,6 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.Date;
 
 @Entity
 @Table(name = "regions")
@@ -17,4 +18,20 @@ public class Region {
     private Long id;
 
     private String name;
+
+
+    private Date createdAt;
+    private Date updatedAt;
+
+    @PrePersist
+    public void onCreate() {
+        createdAt = new Date();
+        updatedAt = new Date();
+    }
+
+    @PreUpdate
+    public void onUpdate() {
+        updatedAt = new Date();
+    }
+
 }

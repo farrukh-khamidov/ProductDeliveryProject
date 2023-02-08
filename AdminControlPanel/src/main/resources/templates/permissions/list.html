@@ -24,9 +24,9 @@
                                     <div class="page-body">
                                         <div class="card">
                                             <div class="card-header">
-                                                <h5>Regions</h5>
-                                                <a th:href="@{regions/add}" class="btn btn-primary waves-effect waves-light f-right d-inline-block md-trigger" >
-                                                        <i class="icofont icofont-plus m-r-5"></i> Add Region
+                                                <h5>Permissions</h5>
+                                                <a th:href="@{permissions/create}" class="btn btn-primary waves-effect waves-light f-right d-inline-block md-trigger" >
+                                                        <i class="icofont icofont-plus m-r-5"></i> Add Permission
                                                 </a>
                                             </div>
                                             <div class="card-block table-border-style">
@@ -42,11 +42,14 @@
                                                         </tr>
                                                         </thead>
                                                         <tbody>
-                                                        <tr th:each="region: ${regions}">
-                                                            <th scope="row">[[${region.id}]]</th>
-                                                            <td>[[${region.name}]]</td>
-                                                            <td>[[${region.createdAt}]]</td>
-                                                            <td></td>
+                                                        <tr th:each="permission: ${permissions}">
+                                                            <th scope="row">[[${permission.id}]]</th>
+                                                            <td>[[${permission.name}]]</td>
+                                                            <td>[[${permission.createdAt}]]</td>
+                                                            <td>
+                                                                <a th:href="@{'/permissions/update/' + ${permission.id}}"><i class="icofont icofont-edit"></i></a>
+                                                                <button class="btn-default " th:permissionId="${permission.id}" type="button" onclick="deleteRow(this)"><i class="icofont icofont-ui-delete"></i></button>
+                                                            </td>
                                                         </tr>
 
                                                         </tbody>
@@ -66,4 +69,38 @@
     </div>
 </body>
 <div th:replace="fragments/footer::footer"></div>
+<script>
+    function deleteRow(e) {
+        var button = $(e);
+        console.log(button)
+        console.log(button.attr('permissionId'))
+        var permissionId = button.attr('permissionId');
+        swal({
+                title: "Are you sure?",
+                text: "Your will not be able to recover this element!",
+                type: "warning",
+                showCancelButton: true,
+                confirmButtonClass: "btn-danger",
+                confirmButtonText: "Yes, delete it!",
+                closeOnConfirm: false
+            },
+            function(value){
+                if (value) {
+                    $.ajax({
+                        'url' : '/admin/permissions/delete/' + permissionId,
+                        'type' : 'GET',
+                        'success' : function(data) {
+                            swal("Deleted!", "Your imaginary file has been deleted.", "success");
+                            button.parents('tr').remove();
+                        },
+                        'error' : function(request,error) {
+                            swal("Error!", "Something went wrong.", "error");
+                        }
+                    });
+                }
+                console.log(value)
+
+            });
+    }
+</script>
 </html>

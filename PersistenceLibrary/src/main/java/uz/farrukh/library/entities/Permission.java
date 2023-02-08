@@ -3,25 +3,24 @@ package uz.farrukh.library.entities;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.util.Date;
 
 @Entity
-@Table(name = "places")
+@Table(name = "permissions")
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
-public class Place {
+public class Permission {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
 
     private String name;
 
-    @ManyToOne
-    private Region region;
-
+    @DateTimeFormat
     private Date createdAt;
     private Date updatedAt;
 
