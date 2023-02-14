@@ -7,4 +7,6 @@ import uz.farrukh.library.entities.Permission;
 @Repository
 public interface PermissionRepository extends CrudRepository<Permission, Long> {
 
+    boolean existsByName(String name);
+
 }

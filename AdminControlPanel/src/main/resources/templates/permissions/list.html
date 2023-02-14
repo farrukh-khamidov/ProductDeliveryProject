@@ -29,15 +29,15 @@
                                                         <i class="icofont icofont-plus m-r-5"></i> Add Permission
                                                 </a>
                                             </div>
-                                            <div class="card-block table-border-style">
+                                            <div class="card-block">
                                                 <div class="table-responsive">
-                                                    <table class="table table-hover">
+                                                    <table class="table table-hover table-bordered table-striped">
                                                         <thead>
                                                         <tr>
-                                                            <th>#</th>
+                                                            <th class="w-px-80">#</th>
                                                             <th>Name</th>
                                                             <th>Created At</th>
-                                                            <th>Actions</th>
+                                                            <th class="w-px-100">Actions</th>
 
                                                         </tr>
                                                         </thead>
@@ -47,8 +47,8 @@
                                                             <td>[[${permission.name}]]</td>
                                                             <td>[[${permission.createdAt}]]</td>
                                                             <td>
-                                                                <a th:href="@{'/permissions/update/' + ${permission.id}}"><i class="icofont icofont-edit"></i></a>
-                                                                <button class="btn-default " th:permissionId="${permission.id}" type="button" onclick="deleteRow(this)"><i class="icofont icofont-ui-delete"></i></button>
+                                                                <a th:href="@{'/permissions/update/' + ${permission.id}}"><i class="icofont icofont-edit icofont-lg"></i></a>
+                                                                <a href="javascript:void(0)" th:permissionId="${permission.id}" onclick="deleteRow(this)"><i class="icofont icofont-ui-delete icofont-lg"></i></a>
                                                             </td>
                                                         </tr>
 
@@ -72,8 +72,6 @@
 <script>
     function deleteRow(e) {
         var button = $(e);
-        console.log(button)
-        console.log(button.attr('permissionId'))
         var permissionId = button.attr('permissionId');
         swal({
                 title: "Are you sure?",

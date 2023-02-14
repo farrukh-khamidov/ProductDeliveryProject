@@ -3,12 +3,15 @@ package uz.farrukh.admin.controllers;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 import uz.farrukh.admin.services.PermissionService;
 import uz.farrukh.admin.services.PlaceService;
 import uz.farrukh.admin.services.RegionService;
 import uz.farrukh.library.entities.Permission;
 import uz.farrukh.library.entities.Place;
+
+import javax.validation.Valid;
 
 @Controller
 @RequestMapping("/permissions")
@@ -40,9 +43,14 @@ public class PermissionController {
         return "permissions/form";
     }
 
-    @PostMapping("/add")
-    public String save(Permission permission, Model model) {
-
+    @PostMapping("/save")
+    public String save(@Valid Permission permission, Errors errors, Model model) {
+        System.out.println(errors.hasErrors());
+        System.out.println(errors.getAllErrors());
+        if (errors.hasErrors()) {
+            return "permissions/form";
+        }
+        System.out.println("validated");
         System.out.println(permission);
         permissionService.save(permission);
         return "redirect:/permissions";
