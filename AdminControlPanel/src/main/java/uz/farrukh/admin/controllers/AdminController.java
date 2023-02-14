@@ -3,9 +3,7 @@ package uz.farrukh.admin.controllers;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import uz.farrukh.admin.services.AdminService;
 import uz.farrukh.library.entities.Admin;
 
@@ -45,5 +43,14 @@ public class AdminController {
         adminService.save(admin);
 
         return "redirect:/admins";
+    }
+
+    @GetMapping("/{id}/enabled/{status}")
+    @ResponseBody
+    public boolean toggleStatus(@PathVariable Long id, @PathVariable boolean status) {
+        System.out.println(id);
+        System.out.println(status);
+        adminService.updateEnabledStatus(id, status);
+        return true;
     }
 }

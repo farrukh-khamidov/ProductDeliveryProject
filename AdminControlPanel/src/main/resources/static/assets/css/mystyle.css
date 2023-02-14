@@ -1,0 +1,48 @@
+.w-px-10 {
+    width: 10px !important;
+}
+
+.w-px-20 {
+    width: 20px !important;
+}
+
+.w-px-30 {
+    width: 30px !important;
+}
+
+.w-px-60 {
+    width: 60px !important;
+}
+
+.w-px-80 {
+    width: 80px !important;
+}
+.w-px-100 {
+    width: 100px !important;
+}
+
+.w-px-150 {
+    width: 150px !important;
+}
+
+.w-px-200 {
+    width: 200px !important;
+}
+
+
+label.pagination-page-size-label {
+    font-weight: normal;
+    text-align: left;
+    white-space: nowrap;
+}
+
+label.pagination-page-size-label select {
+    width: 75px;
+    display: inline-block;
+}
+
+label.pagination-page-size-label input {
+    margin-left: 0.5em;
+    display: inline-block;
+    width: auto
+}

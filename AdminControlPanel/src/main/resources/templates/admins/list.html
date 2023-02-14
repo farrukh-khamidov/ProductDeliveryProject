@@ -37,8 +37,8 @@
                                                             <th>#</th>
                                                             <th>First Name</th>
                                                             <th>Last Name</th>
-                                                            <th>email</th>
-                                                            <th>enabled</th>
+                                                            <th>E-mail</th>
+                                                            <th>Enabled</th>
 
                                                         </tr>
                                                         </thead>
@@ -48,7 +48,9 @@
                                                             <td>[[${admin.firstName}]]</td>
                                                             <td>[[${admin.lastName}]]</td>
                                                             <td>[[${admin.email}]]</td>
-                                                            <td>[[${admin.enabled}]]</td>
+                                                            <td>
+                                                                <input type="checkbox" th:adminId="${admin.id}" class="js-switch" th:checked="${admin.enabled}">
+                                                            </td>
                                                         </tr>
 
                                                         </tbody>
@@ -68,4 +70,33 @@
     </div>
 </body>
 <div th:replace="fragments/footer::footer"></div>
+
+<script>
+    $(document).ready(function() {
+
+        // Multiple swithces
+        var elem = Array.prototype.slice.call(document.querySelectorAll('.js-switch'));
+        elem.forEach(function(html) {
+            var switchery = new Switchery(html, { color: '#4680ff', jackColor: '#fff' });
+        });
+
+
+        $(".js-switch").on("change", function () {
+            var $input = $(this);
+            console.log($input)
+            var adminId = $input.attr('adminId');
+            var enabled = !$input.attr('checked');
+
+
+            $.ajax({
+                'url' : "[[@{/admins/}]]" + adminId + "/enabled/" + enabled,
+                'type' : 'GET',
+                'success' : function(data) {
+                    $input.attr('checked', enabled);
+                }
+            });
+        })
+
+    });
+</script>
 </html>

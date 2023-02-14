@@ -6,6 +6,9 @@ import lombok.NoArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.util.Date;
 
 @Entity
@@ -18,6 +21,8 @@ public class Permission {
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
 
+    @NotNull(message = "This field is required")
+    @Size(min = 3, message = "Role name must be at least 3 characters long")
     private String name;
 
     @DateTimeFormat
