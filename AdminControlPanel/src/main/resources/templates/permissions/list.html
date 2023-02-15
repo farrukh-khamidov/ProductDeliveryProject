@@ -69,7 +69,7 @@
                                                                     <td>[[${permission.createdAt}]]</td>
                                                                     <td>
                                                                         <a th:href="@{'/permissions/update/' + ${permission.id}}"><i class="icofont icofont-edit icofont-lg"></i></a>
-                                                                        <a href="javascript:void(0)" onclick="deleteRow(this)"><i class="icofont icofont-ui-delete icofont-lg"></i></a>
+                                                                        <a href="javascript:void(0)" th:permissionId="${permission.id}" onclick="deleteRow(this)"><i class="icofont icofont-ui-delete icofont-lg"></i></a>
                                                                     </td>
                                                                 </tr>
 
