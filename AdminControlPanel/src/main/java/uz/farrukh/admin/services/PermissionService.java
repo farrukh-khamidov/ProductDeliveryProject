@@ -1,13 +1,17 @@
 package uz.farrukh.admin.services;
 
+import org.springframework.data.domain.Page;
 import uz.farrukh.library.entities.Permission;
 
 import java.util.List;
 
 public interface PermissionService {
+    int PAGE_SIZE = 5;
     Permission save(Permission permission);
 
     List<Permission> findAll();
+
+    Page<Permission> findAllByPage(int pageNum);
 
     Permission findById(Long id);
 

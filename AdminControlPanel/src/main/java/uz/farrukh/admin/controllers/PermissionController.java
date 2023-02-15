@@ -1,6 +1,7 @@
 package uz.farrukh.admin.controllers;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
@@ -21,8 +22,27 @@ public class PermissionController {
     private final PermissionService permissionService;
 
     @GetMapping
-    public String places(Model model) {
-        model.addAttribute("permissions", permissionService.findAll());
+    public String list(Model model) {
+        return listByPage(1, model);
+    }
+
+    @GetMapping("/page/{pageNum}")
+    public String listByPage(@PathVariable int pageNum, Model model) {
+
+        Page<Permission> page = permissionService.findAllByPage(pageNum);
+
+        int startCount = (pageNum - 1) * PermissionService.PAGE_SIZE + 1;
+        long endCount = startCount + PermissionService.PAGE_SIZE - 1;
+        long totalCount = page.getTotalElements();
+
+        if (endCount > totalCount) endCount = totalCount;
+
+
+        model.addAttribute("permissions", page);
+
+        model.addAttribute("startCount", startCount);
+        model.addAttribute("endCount", endCount);
+        model.addAttribute("totalCount", totalCount);
         return "permissions/list";
     }
 

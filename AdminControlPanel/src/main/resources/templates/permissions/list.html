@@ -1,7 +1,7 @@
 ﻿<!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 
-<head th:replace="fragments/header::page_head('Regions')"></head>
+<head th:replace="fragments/header::page_head('Permissions')"></head>
 
 <body>
     <!-- Pre-loader start -->
@@ -30,30 +30,59 @@
                                                 </a>
                                             </div>
                                             <div class="card-block">
+
                                                 <div class="table-responsive">
-                                                    <table class="table table-hover table-bordered table-striped">
-                                                        <thead>
-                                                        <tr>
-                                                            <th class="w-px-80">#</th>
-                                                            <th>Name</th>
-                                                            <th>Created At</th>
-                                                            <th class="w-px-100">Actions</th>
+                                                    <div class="row">
+                                                        <div class="col-xs-12 col-sm-12">
+                                                            <table class="table table-hover table-bordered table-striped">
+                                                                <thead>
+                                                                <tr>
+                                                                    <th class="w-px-80">#</th>
+                                                                    <th>Name</th>
+                                                                    <th>Created At</th>
+                                                                    <th class="w-px-100">Actions</th>
 
-                                                        </tr>
-                                                        </thead>
-                                                        <tbody>
-                                                        <tr th:each="permission: ${permissions}">
-                                                            <th scope="row">[[${permission.id}]]</th>
-                                                            <td>[[${permission.name}]]</td>
-                                                            <td>[[${permission.createdAt}]]</td>
-                                                            <td>
-                                                                <a th:href="@{'/permissions/update/' + ${permission.id}}"><i class="icofont icofont-edit icofont-lg"></i></a>
-                                                                <a href="javascript:void(0)" th:permissionId="${permission.id}" onclick="deleteRow(this)"><i class="icofont icofont-ui-delete icofont-lg"></i></a>
-                                                            </td>
-                                                        </tr>
+                                                                </tr>
+                                                                </thead>
+                                                                <tbody>
+                                                                <tr th:each="permission: ${permissions}">
+                                                                    <th scope="row">[[${permission.id}]]</th>
+                                                                    <td>[[${permission.name}]]</td>
+                                                                    <td>[[${permission.createdAt}]]</td>
+                                                                    <td>
+                                                                        <a th:href="@{'/permissions/update/' + ${permission.id}}"><i class="icofont icofont-edit icofont-lg"></i></a>
+                                                                        <a href="javascript:void(0)" th:permissionId="${permission.id}" onclick="deleteRow(this)"><i class="icofont icofont-ui-delete icofont-lg"></i></a>
+                                                                    </td>
+                                                                </tr>
 
-                                                        </tbody>
-                                                    </table>
+                                                                </tbody>
+                                                            </table>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="row">
+                                                        <div class="col-xs-12 col-sm-12 col-md-5">
+                                                            <div>Showing [[${startCount}]] to [[${endCount}]] of [[${totalCount}]] entries</div>
+                                                        </div><div class="col-xs-12 col-sm-12 col-md-7">
+                                                        <div class="dataTables_paginate">
+                                                            <ul class="pagination">
+                                                                <li class="page-item previous" >
+                                                                    <a href="#" class="page-link">Previous</a>
+                                                                </li>
+                                                                <li class="paginate_button page-item active">
+                                                                    <a href="#" aria-controls="dom-jqry" data-dt-idx="1" tabindex="0" class="page-link">1</a>
+                                                                </li>
+                                                                <li class="paginate_button page-item ">
+                                                                    <a href="#" aria-controls="dom-jqry" data-dt-idx="2" tabindex="0" class="page-link">2</a>
+                                                                </li>
+                                                                <li class="paginate_button page-item next" id="dom-jqry_next">
+                                                                    <a href="#" aria-controls="dom-jqry" data-dt-idx="3" tabindex="0" class="page-link">Next</a>
+                                                                </li>
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+                                                    </div>
+
                                                 </div>
                                             </div>
                                         </div>
