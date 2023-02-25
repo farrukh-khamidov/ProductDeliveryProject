@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import uz.farrukh.admin.services.PermissionService;
 import uz.farrukh.library.entities.Permission;
@@ -42,15 +43,16 @@ public class PermissionServiceImpl implements PermissionService {
     }
 
     @Override
-    public Page<Permission> findAllByPage(int pageNum, int pageSize) {
+    public Page<Permission> findAllByPage(int pageNum, int pageSize, String sortField, String sortDir, String keyword) {
 
-        Pageable pageable = PageRequest.of(pageNum - 1, pageSize);
-        Page<Permission> page = permissionRepository.findAll(pageable);
+        Sort sort = Sort.by(sortField);
+        sort = sortDir.equals("asc") ? sort.ascending() : sort.descending();
 
-        System.out.println("PageNum = " + pageNum);
-        System.out.println("Total elements = " + page.getTotalElements());
-        System.out.println("Total pages = " + page.getTotalPages());
+        Pageable pageable = PageRequest.of(pageNum - 1, pageSize, sort);
+        if (keyword != null) {
+            return permissionRepository.findAll(keyword, pageable);
+        }
 
-        return page;
+        return permissionRepository.findAll(pageable);
     }
 }

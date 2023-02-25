@@ -23,17 +23,24 @@ public class PermissionController {
 
     @GetMapping
     public String list(Model model) {
-        return listByPage(1, 10, model);
+        return listByPage(1, 10, "name", "asc", null, model);
     }
 
     @GetMapping("/page/{pageNum}/size/{pageSize}")
-    public String listByPage(@PathVariable int pageNum, @PathVariable int pageSize, Model model) {
-        Page<Permission> page = permissionService.findAllByPage(pageNum, pageSize);
+    public String listByPage(@PathVariable int pageNum, @PathVariable int pageSize,
+                             @RequestParam String sortField,
+                             @RequestParam String sortDir,
+                             @RequestParam(required = false) String keyword,
+                             Model model) {
+
+        Page<Permission> page = permissionService.findAllByPage(pageNum, pageSize, sortField, sortDir, keyword);
 
 
         long startCount = (long) (pageNum - 1) * pageSize + 1;
         long endCount = startCount + pageSize - 1;
         if (endCount > page.getTotalElements()) endCount = page.getTotalElements();
+
+        String reverseSortDir = sortDir.equals("asc") ? "desc" : "asc";
 
         model.addAttribute("currentPage", pageNum);
         model.addAttribute("currentSize", pageSize);
@@ -42,6 +49,11 @@ public class PermissionController {
         model.addAttribute("endCount", endCount);
         model.addAttribute("totalCount", page.getTotalElements());
         model.addAttribute("totalPages", page.getTotalPages());
+
+        model.addAttribute("sortField", sortField);
+        model.addAttribute("sortDir", sortDir);
+        model.addAttribute("reverseSortDir", reverseSortDir);
+        model.addAttribute("keyword", keyword);
 
         model.addAttribute("permissions",page.getContent());
         return "permissions/list";

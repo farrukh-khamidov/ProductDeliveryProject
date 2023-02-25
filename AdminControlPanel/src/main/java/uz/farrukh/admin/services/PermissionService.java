@@ -17,5 +17,5 @@ public interface PermissionService {
 
     void deleteById(Long id);
 
-    Page<Permission> findAllByPage(int pageNum, int pageSize);
+    Page<Permission> findAllByPage(int pageNum, int pageSize, String sortField, String sortDir, String keyword);
 }
