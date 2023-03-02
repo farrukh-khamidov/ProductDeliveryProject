@@ -13,3 +13,47 @@
 .w-px-150 {
     width: 150px !important;
 }
+
+
+.pagination-page-size-wrapper label,
+.pagination-search-wrapper label  {
+    font-weight: normal;
+    text-align: left;
+    white-space: nowrap;
+}
+
+.pagination-page-size-wrapper select {
+    width: 75px;
+    display: inline-block;
+}
+
+.pagination-search-wrapper {
+    text-align: right;
+}
+
+.pagination-search-wrapper {
+    text-align: right;
+}
+
+.pagination-search-wrapper input {
+    margin-left: 0.5em;
+    display: inline-block;
+    width: auto;
+}
+
+.pagination-page-dir-wrapper {
+    display: inline-block;
+    float: right;
+}
+
+.pagination-table th a {
+    display: block;
+}
+
+.opacity-03 {
+    opacity: 0.3 !important;
+}
+
+.opacity-1 {
+    opacity: 1 !important;
+}

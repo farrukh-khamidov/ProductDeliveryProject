@@ -6,12 +6,11 @@ import uz.farrukh.library.entities.Permission;
 import java.util.List;
 
 public interface PermissionService {
-    int PAGE_SIZE = 5;
     Permission save(Permission permission);
 
     List<Permission> findAll();
 
-    Page<Permission> findAllByPage(int pageNum);
+    Page<Permission> findAllByPage(int pageNum, int pageSize, String sortField, String sortDir);
 
     Permission findById(Long id);
 

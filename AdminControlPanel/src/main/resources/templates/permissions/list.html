@@ -31,59 +31,98 @@
                                             </div>
                                             <div class="card-block">
 
-                                                <div class="table-responsive">
-                                                    <div class="row">
-                                                        <div class="col-xs-12 col-sm-12">
-                                                            <table class="table table-hover table-bordered table-striped">
-                                                                <thead>
-                                                                <tr>
-                                                                    <th class="w-px-80">#</th>
-                                                                    <th>Name</th>
-                                                                    <th>Created At</th>
-                                                                    <th class="w-px-100">Actions</th>
-
-                                                                </tr>
-                                                                </thead>
-                                                                <tbody>
-                                                                <tr th:each="permission: ${permissions}">
-                                                                    <th scope="row">[[${permission.id}]]</th>
-                                                                    <td>[[${permission.name}]]</td>
-                                                                    <td>[[${permission.createdAt}]]</td>
-                                                                    <td>
-                                                                        <a th:href="@{'/permissions/update/' + ${permission.id}}"><i class="icofont icofont-edit icofont-lg"></i></a>
-                                                                        <a href="javascript:void(0)" th:permissionId="${permission.id}" onclick="deleteRow(this)"><i class="icofont icofont-ui-delete icofont-lg"></i></a>
-                                                                    </td>
-                                                                </tr>
-
-                                                                </tbody>
-                                                            </table>
+                                                <div class="row">
+                                                    <div class="col-xs-12 col-sm-12 col-sm-12 col-md-6">
+                                                        <div class="pagination-page-size-wrapper">
+                                                            <label>Show <select id="page-size-select" class="form-control input-sm">
+                                                                <option th:selected="${currentSize == 10 ? true : false}" value="10">10</option>
+                                                                <option th:selected="${currentSize == 25 ? true : false}" value="25">25</option>
+                                                                <option th:selected="${currentSize == 50 ? true : false}" value="50">50</option>
+                                                                <option th:selected="${currentSize == 100 ? true : false}" value="100">100</option>
+                                                            </select> entries</label>
                                                         </div>
                                                     </div>
+                                                    <div class="col-xs-12 col-sm-12 col-md-6">
+                                                        <div id="simpletable_filter" class="pagination-search-wrapper">
+                                                            <label>Search:<input type="search" class="form-control input-sm" placeholder="" aria-controls="simpletable"></label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-xs-12 col-sm-12">
+                                                        <div class="table-responsive">
+                                                            <table class="table table-hover table-bordered table-striped pagination-table">
+                                                            <thead>
+                                                            <tr>
+                                                                <th class="w-px-80">
+                                                                    <a th:href="@{'/permissions/page/' + ${currentPage} + '/size/' + ${currentSize} + '?sortField=id&sortDir=' + ${sortField == 'id' ? reverseSortDir : sortDir}}">
+                                                                        ID
+                                                                        <div class="pagination-page-dir-wrapper">
+                                                                            <i th:class="${sortField == 'id' and sortDir == 'asc' ? 'icofont icofont-arrow-up opacity-1' : 'icofont icofont-arrow-up opacity-03'}"></i>
+                                                                            <i th:class="${sortField == 'id' and sortDir == 'desc' ? 'icofont icofont-arrow-down opacity-1' : 'icofont icofont-arrow-down opacity-03'}"></i>
+                                                                        </div>
+                                                                    </a>
+                                                                </th>
+                                                                <th>
+                                                                    <a th:href="@{'/permissions/page/' + ${currentPage} + '/size/' + ${currentSize} + '?sortField=name&sortDir=' + ${sortField == 'name' ? reverseSortDir : sortDir}}">
+                                                                        Name
+                                                                        <div class="pagination-page-dir-wrapper">
+                                                                            <i th:class="${sortField == 'name' and sortDir == 'asc' ? 'icofont icofont-arrow-up opacity-1' : 'icofont icofont-arrow-up opacity-03'}"></i>
+                                                                            <i th:class="${sortField == 'name' and sortDir == 'desc' ? 'icofont icofont-arrow-down opacity-1' : 'icofont icofont-arrow-down opacity-03'}"></i>
+                                                                        </div>
+                                                                    </a>
+                                                                </th>
+                                                                <th>
+                                                                    <a th:href="@{'/permissions/page/' + ${currentPage} + '/size/' + ${currentSize} + '?sortField=createdAt&sortDir=' + ${sortField == 'createdAt' ? reverseSortDir : sortDir}}">
+                                                                        Created At
+                                                                        <div class="pagination-page-dir-wrapper">
+                                                                            <i th:class="${sortField == 'createdAt' and sortDir == 'asc' ? 'icofont icofont-arrow-up opacity-1' : 'icofont icofont-arrow-up opacity-03'}"></i>
+                                                                            <i th:class="${sortField == 'createdAt' and sortDir == 'desc' ? 'icofont icofont-arrow-down opacity-1' : 'icofont icofont-arrow-down opacity-03'}"></i>
+                                                                        </div>
+                                                                    </a>
+                                                                </th>
+                                                                <th class="w-px-100">Actions</th>
 
-                                                    <div class="row">
+                                                            </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                            <tr th:each="permission: ${permissions}">
+                                                                <th scope="row">[[${permission.id}]]</th>
+                                                                <td>[[${permission.name}]]</td>
+                                                                <td>[[${permission.createdAt}]]</td>
+                                                                <td>
+                                                                    <a th:href="@{'/permissions/update/' + ${permission.id}}"><i class="icofont icofont-edit icofont-lg"></i></a>
+                                                                    <a href="javascript:void(0)" th:permissionId="${permission.id}" onclick="deleteRow(this)"><i class="icofont icofont-ui-delete icofont-lg"></i></a>
+                                                                </td>
+                                                            </tr>
+
+                                                            </tbody>
+                                                        </table>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="row">
                                                         <div class="col-xs-12 col-sm-12 col-md-5">
                                                             <div>Showing [[${startCount}]] to [[${endCount}]] of [[${totalCount}]] entries</div>
                                                         </div><div class="col-xs-12 col-sm-12 col-md-7">
                                                         <div class="dataTables_paginate">
                                                             <ul class="pagination">
-                                                                <li class="page-item previous" >
-                                                                    <a href="#" class="page-link">Previous</a>
+                                                                <li th:class="${currentPage > 1 ? 'page-item' : 'page-item disabled'}">
+                                                                    <a th:href="@{'/permissions/page/' + ${currentPage - 1} + '/size/' + ${currentSize} + '?sortField=' +  ${sortField} + '&sortDir=' + ${sortDir}}" class="page-link">Previous</a>
                                                                 </li>
-                                                                <li class="paginate_button page-item active">
-                                                                    <a href="#" aria-controls="dom-jqry" data-dt-idx="1" tabindex="0" class="page-link">1</a>
+                                                                <li th:class="${i == currentPage ? 'page-item active' : 'page-item'}" th:each="i : ${#numbers.sequence(1,totalPages)}">
+                                                                    <a th:href="@{'/permissions/page/' + ${i} + '/size/' + ${currentSize} + '?sortField=' +  ${sortField} + '&sortDir=' + ${sortDir}}" class="page-link">[[${i}]]</a>
                                                                 </li>
-                                                                <li class="paginate_button page-item ">
-                                                                    <a href="#" aria-controls="dom-jqry" data-dt-idx="2" tabindex="0" class="page-link">2</a>
-                                                                </li>
-                                                                <li class="paginate_button page-item next" id="dom-jqry_next">
-                                                                    <a href="#" aria-controls="dom-jqry" data-dt-idx="3" tabindex="0" class="page-link">Next</a>
+                                                                <li th:class="${currentPage < totalPages ? 'page-item' : 'page-item disabled'}">
+                                                                    <a th:href="@{'/permissions/page/' + ${currentPage + 1} + '/size/' + ${currentSize} + '?sortField=' +  ${sortField} + '&sortDir=' + ${sortDir}}" class="page-link">Next</a>
                                                                 </li>
                                                             </ul>
                                                         </div>
                                                     </div>
                                                     </div>
 
-                                                </div>
+
                                             </div>
                                         </div>
                                     </div>
@@ -129,5 +168,18 @@
 
             });
     }
+
+    $(document).ready(function () {
+
+
+        $('#page-size-select').change(function () {
+            document.location = "[[@{/permissions/page/}]][[${currentPage}]]/size/" + $(this).val()  + '?sortField=[[${sortField}]]&sortDir=[[${sortDir}]]';
+        });
+
+        // $('body').on('change', '#page-size-select', function () {
+        //     console.log($(this).val());
+        // })
+
+    });
 </script>
 </html>
