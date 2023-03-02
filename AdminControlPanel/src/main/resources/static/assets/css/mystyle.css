@@ -64,3 +64,9 @@ label.pagination-page-size-label input {
 .opacity-1 {
     opacity: 1 !important;
 }
+
+label.search-text {
+    margin: 0;
+    display: flex;
+    align-items: center;
+}

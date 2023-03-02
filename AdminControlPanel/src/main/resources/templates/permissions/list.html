@@ -45,7 +45,15 @@
 
                                                     <div class="col-xs-12 col-sm-12 col-md-6">
                                                         <div class="text-right">
-                                                            <label class="pagination-page-size-label">Search:<input id="search" type="search" class="form-control input-sm" th:value="${keyword}"></label>
+                                                            <label class="pagination-page-size-label">
+                                                                <div class="input-group input-group-button">
+                                                                    <label class="search-text">Search:</label>
+                                                                    <input id="search" type="search" class="form-control"  th:value="${keyword}">
+                                                                    <button class="input-group-addon btn btn-primary" id="search-btn">
+                                                                            <i class="icofont icofont-search"></i>
+                                                                    </button>
+                                                                </div>
+                                                            </label>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -182,9 +190,8 @@
             console.log($('#pageSize').val())
             window.location = "[[@{/permissions/page/}]][[${currentPage}]]/size/" + $('#pageSize').val() + "?sortField=[[${sortField}]]&sortDir=[[${sortDir}]]";
         });
-        $('body').on('change keyup', '#search', function () {
-            console.log($(this).val())
-            window.location = "[[@{/permissions/page/}]][[${currentPage}]]/size/[[${currentSize}]]?sortField=[[${sortField}]]&sortDir=[[${sortDir}]]&keyword=" + $(this).val();
+        $('body').on('click', '#search-btn', function () {
+            window.location = "[[@{/permissions/page/}]][[${currentPage}]]/size/[[${currentSize}]]?sortField=[[${sortField}]]&sortDir=[[${sortDir}]]&keyword=" + $('#search').val();
         });
 
 
