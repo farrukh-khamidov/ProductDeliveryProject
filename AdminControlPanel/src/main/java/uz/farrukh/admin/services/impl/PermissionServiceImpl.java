@@ -7,6 +7,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import uz.farrukh.admin.services.PermissionService;
+import uz.farrukh.library.dtos.DatatableOutput;
 import uz.farrukh.library.entities.Permission;
 import uz.farrukh.library.repositories.PermissionRepository;
 
@@ -28,8 +29,14 @@ public class PermissionServiceImpl implements PermissionService {
     }
 
     @Override
-    public Page<Permission> findAll(Pageable pageable) {
-        return permissionRepository.findAll(pageable);
+    public DatatableOutput<Permission> findAll(Pageable pageable) {
+        Page<Permission> page = permissionRepository.findAll(pageable);
+        DatatableOutput<Permission> output = new DatatableOutput<>();
+        output.setDraw(page.getNumber());
+        output.setRecordsFiltered(page.getTotalElements());
+        output.setRecordsTotal(page.getTotalElements());
+        output.setData(page.getContent());
+        return output;
     }
 
     @Override

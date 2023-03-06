@@ -2,6 +2,8 @@ package uz.farrukh.admin.controllers;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
@@ -9,10 +11,13 @@ import org.springframework.web.bind.annotation.*;
 import uz.farrukh.admin.services.PermissionService;
 import uz.farrukh.admin.services.PlaceService;
 import uz.farrukh.admin.services.RegionService;
+import uz.farrukh.library.dtos.DatatableOutput;
 import uz.farrukh.library.entities.Permission;
 import uz.farrukh.library.entities.Place;
 
 import javax.validation.Valid;
+import java.util.List;
+import java.util.Map;
 
 @Controller
 @RequestMapping("/permissions")
@@ -23,40 +28,19 @@ public class PermissionController {
 
     @GetMapping
     public String list(Model model) {
-        return listByPage(1, 10, "name", "asc", null, model);
+        return "permissions/list";
     }
 
-    @GetMapping("/page/{pageNum}/size/{pageSize}")
-    public String listByPage(@PathVariable int pageNum, @PathVariable int pageSize,
-                             @RequestParam String sortField,
-                             @RequestParam String sortDir,
-                             @RequestParam(required = false) String keyword,
-                             Model model) {
+    @GetMapping("/list")
+    public String list2(Model model) {
+        return "permissions/list2";
+    }
 
-        Page<Permission> page = permissionService.findAllByPage(pageNum, pageSize, sortField, sortDir, keyword);
-
-
-        long startCount = (long) (pageNum - 1) * pageSize + 1;
-        long endCount = startCount + pageSize - 1;
-        if (endCount > page.getTotalElements()) endCount = page.getTotalElements();
-
-        String reverseSortDir = sortDir.equals("asc") ? "desc" : "asc";
-
-        model.addAttribute("currentPage", pageNum);
-        model.addAttribute("currentSize", pageSize);
-
-        model.addAttribute("startCount", startCount);
-        model.addAttribute("endCount", endCount);
-        model.addAttribute("totalCount", page.getTotalElements());
-        model.addAttribute("totalPages", page.getTotalPages());
-
-        model.addAttribute("sortField", sortField);
-        model.addAttribute("sortDir", sortDir);
-        model.addAttribute("reverseSortDir", reverseSortDir);
-        model.addAttribute("keyword", keyword);
-
-        model.addAttribute("permissions",page.getContent());
-        return "permissions/list";
+    @GetMapping("/ajax")
+    @ResponseBody
+    public DatatableOutput<Permission> listAjax(@RequestParam Map<String, Object> filter) {
+        System.out.println(filter);
+        return permissionService.findAll(PageRequest.of(0, 10));
     }
 
 

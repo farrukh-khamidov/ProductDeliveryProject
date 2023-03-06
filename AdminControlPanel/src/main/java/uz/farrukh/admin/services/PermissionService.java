@@ -2,6 +2,7 @@ package uz.farrukh.admin.services;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import uz.farrukh.library.dtos.DatatableOutput;
 import uz.farrukh.library.entities.Permission;
 
 import java.util.List;
@@ -11,7 +12,7 @@ public interface PermissionService {
     Permission save(Permission permission);
 
     List<Permission> findAll();
-    Page<Permission> findAll(Pageable pageable);
+    DatatableOutput<Permission> findAll(Pageable pageable);
 
     Permission findById(Long id);
 
