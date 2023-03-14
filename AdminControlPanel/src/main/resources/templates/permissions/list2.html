@@ -123,10 +123,10 @@
             serverSide: true,
             ajax: '[[@{/permissions/ajax}]]',
             columns: [
-                { data: 0, name: "id", width: "5%"},
-                { data: 1, name: "name", className: "text-center"},
-                { data: 2, name: "createdAt" },
-                { data: 0, width: "5%", render: function (data, type, row, meta) {
+                { data: "id", width: "5%"},
+                { data: "name", className: "text-center"},
+                { data: "createdAt" },
+                { data: "id", width: "5%", render: function (data, type, row, meta) {
                     return '<a href="[[@{/permissions/update/}]]' + data +'"><i class="icofont icofont-edit icofont-lg"></i></a>\n' +
                         '  <a href="javascript:void(0)" permissionId="' + data + '" onclick="deleteRow(this)"><i class="icofont icofont-ui-delete icofont-lg"></i></a>';
                 } },

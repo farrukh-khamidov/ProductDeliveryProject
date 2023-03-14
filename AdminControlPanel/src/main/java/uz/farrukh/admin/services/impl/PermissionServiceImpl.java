@@ -32,25 +32,10 @@ public class PermissionServiceImpl implements PermissionService {
     }
 
     @Override
-    public DatatableOutput findAll(Integer start, Integer length) {
+    public DatatableOutput<Permission> findAll(Integer start, Integer length) {
         Pageable pageable = PageRequest.of(start/length, length);
         Page<Permission> page = permissionRepository.findAll(pageable);
-        DatatableOutput output = new DatatableOutput();
-
-        List<Permission> list = page.getContent();
-
-        output.setRecordsTotal(page.getTotalElements());
-        output.setRecordsFiltered(page.getTotalElements());
-        List<Object[]> data = new ArrayList<>(list.size());
-        list.forEach(permission ->
-            data.add(new Object[]{
-                permission.getId(),
-                permission.getName(),
-                permission.getCreatedAt(),
-            })
-        );
-        output.setData(data);
-        return output;
+        return new DatatableOutput<>(page.getTotalElements(), page.getTotalElements(), page.getContent());
     }
 
     @Override
