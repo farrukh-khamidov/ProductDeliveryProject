@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<div class="row" th:fragment="pagination_header">
+    <div class="col-xs-12 col-sm-12 col-sm-12 col-md-6">
+        <div class="pagination-page-size-wrapper">
+            <label>Show <select id="page-size-select" class="form-control input-sm">
+                <option th:selected="${currentSize == 10 ? true : false}" value="10">10</option>
+                <option th:selected="${currentSize == 25 ? true : false}" value="25">25</option>
+                <option th:selected="${currentSize == 50 ? true : false}" value="50">50</option>
+                <option th:selected="${currentSize == 100 ? true : false}" value="100">100</option>
+            </select> entries</label>
+        </div>
+    </div>
+    <div class="col-xs-12 col-sm-12 col-md-6">
+        <div id="simpletable_filter" class="pagination-search-wrapper">
+            <label>Search:<input id="search-input" type="search" class="form-control input-sm" placeholder="" th:value="${keyword}"><button id="search-btn" type="button" class="btn btn-primary"><i class="icofont icofont-ui-search"></i></button></label>
+        </div>
+    </div>
+</div>
+
+<th th:fragment="page_link(fieldName, fieldLabel, tag)" th:remove="${tag}">
+    <a th:href="@{'/permissions/page/' + ${currentPage} + '/size/' + ${currentSize} + '?sortField=' + ${fieldName} +'&sortDir=' + ${sortField == fieldName ? reverseSortDir : sortDir}}">
+        [[${fieldLabel}]]
+        <div class="pagination-page-dir-wrapper">
+            <i th:class="${sortField == fieldName and sortDir == 'asc' ? 'icofont icofont-arrow-up opacity-1' : 'icofont icofont-arrow-up opacity-03'}"></i>
+            <i th:class="${sortField == fieldName and sortDir == 'desc' ? 'icofont icofont-arrow-down opacity-1' : 'icofont icofont-arrow-down opacity-03'}"></i>
+        </div>
+    </a>
+</th>
+<div class="row" th:fragment="pagination_footer">
+    <div class="col-xs-12 col-sm-12 col-md-5">
+        <div>Showing [[${startCount}]] to [[${endCount}]] of [[${totalCount}]] entries</div>
+    </div>
+    <div class="col-xs-12 col-sm-12 col-md-7">
+        <div class="dataTables_paginate">
+            <ul class="pagination">
+                <li th:class="${currentPage > 1 ? 'page-item' : 'page-item disabled'}">
+                    <a th:href="@{'/permissions/page/' + ${currentPage - 1} + '/size/' + ${currentSize} + '?sortField=' +  ${sortField} + '&sortDir=' + ${sortDir}  + ${keyword != null ? '&keyword=' + keyword : ''}}" class="page-link">Previous</a>
+                </li>
+                <li th:class="${i == currentPage ? 'page-item active' : 'page-item'}" th:each="i : ${#numbers.sequence(1,totalPages)}">
+                    <a th:href="@{'/permissions/page/' + ${i} + '/size/' + ${currentSize} + '?sortField=' +  ${sortField} + '&sortDir=' + ${sortDir}  + ${keyword != null ? '&keyword=' + keyword : ''}}" class="page-link">[[${i}]]</a>
+                </li>
+                <li th:class="${currentPage < totalPages ? 'page-item' : 'page-item disabled'}">
+                    <a th:href="@{'/permissions/page/' + ${currentPage + 1} + '/size/' + ${currentSize} + '?sortField=' +  ${sortField} + '&sortDir=' + ${sortDir} + ${keyword != null ? '&keyword=' + keyword : ''}}" class="page-link">Next</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+
+</html>

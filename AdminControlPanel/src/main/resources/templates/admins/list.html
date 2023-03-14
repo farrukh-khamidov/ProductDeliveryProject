@@ -48,7 +48,9 @@
                                                             <td>[[${admin.firstName}]]</td>
                                                             <td>[[${admin.lastName}]]</td>
                                                             <td>[[${admin.email}]]</td>
-                                                            <td>[[${admin.enabled}]]</td>
+                                                            <td>
+                                                                <input th:adminId="${admin.id}" type="checkbox" class="enabled" th:checked="${admin.enabled}">
+                                                            </td>
                                                         </tr>
 
                                                         </tbody>
@@ -68,4 +70,22 @@
     </div>
 </body>
 <div th:replace="fragments/footer::footer"></div>
+<script>
+    $(document).ready(function () {
+
+        $('body').on('change', ".enabled", function () {
+            console.log($(this).prop('checked'))
+            console.log($(this).attr('adminId'))
+
+            $.ajax({
+                'url' : '[[@{/admins/}]]' + $(this).attr('adminId') + '/enabled/' + $(this).prop('checked'),
+                'type' : 'GET',
+                'error' : function(request,error) {
+                    console.log("Something went wrong.");
+                }
+            });
+        })
+
+    });
+</script>
 </html>
