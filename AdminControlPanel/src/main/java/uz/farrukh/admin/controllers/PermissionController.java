@@ -6,6 +6,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
+import uz.farrukh.admin.dto.DatatableOutput;
 import uz.farrukh.admin.services.PermissionService;
 import uz.farrukh.admin.services.PlaceService;
 import uz.farrukh.admin.services.RegionService;
@@ -29,7 +30,7 @@ public class PermissionController {
 
     @GetMapping("/ajax")
     @ResponseBody
-    public Map<String, Object> listAjax(@RequestParam Map<String, Object> params, Model model) {
+    public DatatableOutput listAjax(@RequestParam Map<String, Object> params, Model model) {
         System.out.println("*************************************************Keldi");
         System.out.println(params);
         Integer start = Integer.valueOf((String) params.get("start")) ;
