@@ -10,7 +10,7 @@ public interface PermissionService {
     Permission save(Permission permission);
 
     List<Permission> findAll();
-    Map<String, Object> findAll(Integer start, Integer length);
+    Map<String, Object> findAll(Map<String, Object> params);
 
     Page<Permission> findAllByPage(int pageNum, int pageSize, String sortField, String sortDir, String keyword);
 

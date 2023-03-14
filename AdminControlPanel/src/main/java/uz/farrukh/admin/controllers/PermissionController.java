@@ -32,51 +32,9 @@ public class PermissionController {
     public Map<String, Object> listAjax(@RequestParam Map<String, Object> params, Model model) {
         System.out.println("*************************************************Keldi");
         System.out.println(params);
-        Integer start = Integer.valueOf((String) params.get("start")) ;
-        Integer length = Integer.valueOf((String) params.get("length"));
-
-        return permissionService.findAll(start, length);
-    }
-
-    @GetMapping("/page/{pageNum}/size/{pageSize}")
-    public String listByPage(@PathVariable int pageNum,
-                             @PathVariable int pageSize,
-                             @RequestParam String sortField,
-                             @RequestParam String sortDir,
-                             @RequestParam(required = false) String keyword,
-                             Model model) {
-        System.out.println(keyword);
-
-        Page<Permission> page = permissionService.findAllByPage(pageNum, pageSize, sortField, sortDir, keyword);
-
-        int startCount = (pageNum - 1) * pageSize + 1;
-        long endCount = startCount + pageSize - 1;
-        long totalCount = page.getTotalElements();
-
-        if (endCount > totalCount) endCount = totalCount;
 
 
-        model.addAttribute("permissions", page.getContent());
-
-        model.addAttribute("startCount", startCount);
-        model.addAttribute("endCount", endCount);
-        model.addAttribute("totalCount", totalCount);
-
-        model.addAttribute("totalPages", page.getTotalPages());
-
-        model.addAttribute("currentPage", pageNum);
-        model.addAttribute("currentSize", pageSize);
-
-        model.addAttribute("sortField", sortField);
-        model.addAttribute("sortDir", sortDir);
-
-        String reverseSortDir = sortDir.equals("asc") ? "desc" : "asc";
-
-        model.addAttribute("reverseSortDir", reverseSortDir);
-        model.addAttribute("keyword", keyword);
-
-
-        return "permissions/list";
+        return permissionService.findAll(params);
     }
 
     @GetMapping("/create")

@@ -31,9 +31,31 @@ public class PermissionServiceImpl implements PermissionService {
     }
 
     @Override
-    public Map<String, Object> findAll(Integer start, Integer length) {
-        Pageable pageable = PageRequest.of(start/length, length);
-        Page<Permission> page = permissionRepository.findAll(pageable);
+    public Map<String, Object> findAll(Map<String, Object> params) {
+
+        Integer start = Integer.valueOf((String) params.get("start")) ;
+        Integer length = Integer.valueOf((String) params.get("length"));
+
+        Integer columnIndex = Integer.valueOf((String) params.get("order[0][column]")) ;
+        String filedNameKey = "columns[" + columnIndex + "][name]";
+        String fieldName = (String) params.get(filedNameKey);
+        String direction = (String) params.get("order[0][dir]");
+
+        String keyword = (String) params.get("search[value]");
+
+        System.out.println(columnIndex);
+        System.out.println(filedNameKey);
+        System.out.println(fieldName);
+        System.out.println(direction);
+        System.out.println(keyword);
+
+        Sort sort = Sort.by(Sort.Direction.valueOf(direction.toUpperCase()), fieldName);
+
+
+
+
+        Pageable pageable = PageRequest.of(start/length, length, sort);
+        Page<Permission> page = permissionRepository.findAll(keyword, pageable);
         Map<String, Object> result = new HashMap<>();
 
         List<Permission> list = page.getContent();
