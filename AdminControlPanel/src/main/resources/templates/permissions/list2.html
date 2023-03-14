@@ -1,0 +1,140 @@
+﻿<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="fragments/header::page_head('Permissions')"></head>
+
+<body>
+    <!-- Pre-loader start -->
+    <div th:replace="fragments/preloader::preloader"></div>
+    <!-- Pre-loader end -->
+    <div id="pcoded" class="pcoded">
+        <div class="pcoded-overlay-box"></div>
+        <div class="pcoded-container navbar-wrapper">
+
+            <nav th:replace="fragments/navbar::navbar"></nav>
+
+            <div class="pcoded-main-container">
+                <div class="pcoded-wrapper">
+                    <nav th:replace="fragments/sidebar :: sidebar"></nav>
+                    <div class="pcoded-content">
+                        <div class="pcoded-inner-content">
+                            <div class="main-body">
+                                <div class="page-wrapper">
+
+                                    <div class="page-body">
+                                        <div class="row">
+                                            <div class="col-sm-12">
+                                                <!-- Zero config.table start -->
+                                                <div class="card">
+                                                    <div class="card-header">
+                                                        <h5>Zero Configuration</h5>
+                                                        <span>DataTables has most features enabled by default, so all you need to do to use it with your own ables is to call the construction function: $().DataTable();.</span>
+
+                                                    </div>
+                                                    <div class="card-block">
+                                                        <div class="dt-responsive table-responsive">
+                                                            <table id="datatable" class="table table-striped table-bordered nowrap">
+                                                                <thead>
+                                                                <tr>
+                                                                    <th>ID</th>
+                                                                    <th>Name</th>
+                                                                    <th>Created At</th>
+                                                                    <th>Actions</th>
+                                                                </tr>
+                                                                </thead>
+                                                                <tbody>
+                                                                <tr th:each="permission: ${permissions}">
+                                                                    <th scope="row">[[${permission.id}]]</th>
+                                                                    <td>[[${permission.name}]]</td>
+                                                                    <td>[[${permission.createdAt}]]</td>
+                                                                    <td>
+                                                                        <a th:href="@{'/permissions/update/' + ${permission.id}}"><i class="icofont icofont-edit icofont-lg"></i></a>
+                                                                        <a href="javascript:void(0)" th:permissionId="${permission.id}" onclick="deleteRow(this)"><i class="icofont icofont-ui-delete icofont-lg"></i></a>
+                                                                    </td>
+                                                                </tr>
+                                                                </tbody>
+                                                            </table>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <!-- Zero config.table end -->
+
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+<div th:replace="fragments/footer::footer"></div>
+<!-- data-table js -->
+<script th:src="@{/bower_components/datatables.net/js/jquery.dataTables.min.js}"></script>
+<script th:src="@{/bower_components/datatables.net-buttons/js/dataTables.buttons.min.js}"></script>
+<script th:src="@{/assets/pages/data-table/js/jszip.min.js}"></script>
+<script th:src="@{/assets/pages/data-table/js/pdfmake.min.js}"></script>
+<script th:src="@{/assets/pages/data-table/js/vfs_fonts.js}"></script>
+<script th:src="@{/bower_components/datatables.net-buttons/js/buttons.print.min.js}"></script>
+<script th:src="@{/bower_components/datatables.net-buttons/js/buttons.html5.min.js}"></script>
+<script th:src="@{/bower_components/datatables.net-bs4/js/dataTables.bootstrap4.min.js}"></script>
+<script th:src="@{/bower_components/datatables.net-responsive/js/dataTables.responsive.min.js}"></script>
+<script th:src="@{/bower_components/datatables.net-responsive-bs4/js/responsive.bootstrap4.min.js}"></script>
+<script>
+    function deleteRow(e) {
+        var button = $(e);
+        var permissionId = button.attr('permissionId');
+        swal({
+                title: "Are you sure?",
+                text: "Your will not be able to recover this element!",
+                type: "warning",
+                showCancelButton: true,
+                confirmButtonClass: "btn-danger",
+                confirmButtonText: "Yes, delete it!",
+                closeOnConfirm: false
+            },
+            function(value){
+                if (value) {
+                    $.ajax({
+                        'url' : '[[@{/permissions/delete/}]]' + permissionId,
+                        'type' : 'GET',
+                        'success' : function(data) {
+                            swal("Deleted!", "Your imaginary file has been deleted.", "success");
+                            button.parents('tr').remove();
+                        },
+                        'error' : function(request,error) {
+                            swal("Error!", "Something went wrong.", "error");
+                        }
+                    });
+                }
+                console.log(value)
+
+            });
+    }
+
+    $(document).ready(function () {
+        $('#datatable').DataTable({
+            processing: true,
+            serverSide: true,
+            ajax: '[[@{/permissions/ajax}]]',
+            columns: [
+                { data: 0, name: "id", width: "5%"},
+                { data: 1, name: "name", className: "text-center"},
+                { data: 2, name: "createdAt" },
+                { data: 0, width: "5%", render: function (data, type, row, meta) {
+                    return '<a href="[[@{/permissions/update/}]]' + data +'"><i class="icofont icofont-edit icofont-lg"></i></a>\n' +
+                        '  <a href="javascript:void(0)" permissionId="' + data + '" onclick="deleteRow(this)"><i class="icofont icofont-ui-delete icofont-lg"></i></a>';
+                } },
+            ],
+        });
+
+
+
+    });
+</script>
+</html>
