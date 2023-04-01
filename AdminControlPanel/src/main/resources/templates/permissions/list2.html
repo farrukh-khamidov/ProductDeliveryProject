@@ -121,7 +121,25 @@
         $('#datatable').DataTable({
             processing: true,
             serverSide: true,
-            ajax: '[[@{/permissions/ajax}]]',
+            order: [
+                [1, 'desc']
+            ],
+            ajax: function (dataToSend, callback, settings) {
+                var api = this.api();
+                var jqTable = $(api.table().node());
+
+                dataToSend.page = api != undefined ? api.page() : 0;
+                dataToSend.size = api != undefined ? api.page.len() : 25;
+
+                var order = api != undefined ? api.order() : [
+                    [1, 'desc']
+                ];
+                dataToSend.sort = dataToSend.columns[order[0][0]].name + ',' + order[0][1];
+
+                $.post('[[@{/permissions/ajax}]]', dataToSend, function (data) {
+                    callback(data);
+                });
+            },
             columns: [
                 { data: 0, name: "id", width: "5%"},
                 { data: 1, name: "name", className: "text-center"},

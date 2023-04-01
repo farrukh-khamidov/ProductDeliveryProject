@@ -2,6 +2,7 @@ package uz.farrukh.admin.controllers;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
@@ -28,15 +29,17 @@ public class PermissionController {
         return "permissions/list2";
     }
 
-    @GetMapping("/ajax")
-    @ResponseBody
-    public DatatableOutput listAjax(@RequestParam Map<String, Object> params, Model model) {
+    @PostMapping("/ajax")
+    @GetMapping
+    public DatatableOutput listAjax(@RequestBody Pageable pageable) {
         System.out.println("*************************************************Keldi");
-        System.out.println(params);
-        Integer start = Integer.valueOf((String) params.get("start")) ;
-        Integer length = Integer.valueOf((String) params.get("length"));
-
-        return permissionService.findAll(start, length);
+        System.out.println(pageable);
+//        System.out.println(params);
+//        Integer start = Integer.valueOf((String) params.get("start")) ;
+//        Integer length = Integer.valueOf((String) params.get("length"));
+//
+//        return permissionService.findAll(start, length);
+        return null;
     }
 
     @GetMapping("/page/{pageNum}/size/{pageSize}")
