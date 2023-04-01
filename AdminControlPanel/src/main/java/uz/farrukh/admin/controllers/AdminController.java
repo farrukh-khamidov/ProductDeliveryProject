@@ -5,6 +5,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import uz.farrukh.admin.services.AdminService;
+import uz.farrukh.admin.services.PermissionService;
 import uz.farrukh.library.entities.Admin;
 
 import java.util.List;
@@ -15,6 +16,8 @@ import java.util.List;
 public class AdminController {
 
     private final AdminService adminService;
+    private final PermissionService permissionService;
+
 
     @GetMapping
     public String places(Model model) {
@@ -33,6 +36,7 @@ public class AdminController {
         System.out.println("KELDI");
 
         model.addAttribute("admin", admin);
+        model.addAttribute("permissions", permissionService.findAll());
         return "admins/form";
     }
 

@@ -72,10 +72,19 @@
                                                 <div class="form-group row">
                                                     <label for="enabled" class="col-sm-2 col-form-label">Enabled</label>
                                                     <div class="border-checkbox-group border-checkbox-group-primary">
-                                                        <input class="border-checkbox" typ  e="checkbox" id="enabled">
+                                                        <input class="border-checkbox"  type="checkbox" id="enabled">
                                                         <label class="border-checkbox-label" for="enabled"></label>
                                                     </div>
                                                 </div>
+                                                <hr>
+                                                <div class="form-group row">
+                                                    <div class="col-md-3" th:each="permission: ${permissions}">
+                                                        <label class="border-checkbox-label" th:for="${'permission' + permission.id}">[[${permission.name}]]</label>
+                                                        <input th:field="*{permissions}" th:value="${permission.id}" class="border-checkbox"  type="checkbox" th:id="${'permission' + permission.id}">
+                                                    </div>
+
+                                                </div>
+
 
                                                 <div class="form-group row">
                                                     <label class="col-sm-2"></label>

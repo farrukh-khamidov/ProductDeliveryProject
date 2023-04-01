@@ -5,6 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.Set;
 
 @Entity
 @Table(name = "admins")
@@ -23,4 +24,11 @@ public class Admin {
     private String password;
     private boolean enabled;
     private String image;
+
+    @ManyToMany
+    @JoinTable(
+            name = "admin_permissions",
+            joinColumns = @JoinColumn(name = "admin_id"),
+            inverseJoinColumns = @JoinColumn(name = "permission_id"))
+    private Set<Permission> permissions;
 }

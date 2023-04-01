@@ -8,10 +8,7 @@ import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 import uz.farrukh.admin.dto.DatatableOutput;
 import uz.farrukh.admin.services.PermissionService;
-import uz.farrukh.admin.services.PlaceService;
-import uz.farrukh.admin.services.RegionService;
 import uz.farrukh.library.entities.Permission;
-import uz.farrukh.library.entities.Place;
 
 import javax.validation.Valid;
 import java.util.Map;
