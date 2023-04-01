@@ -86,6 +86,7 @@
 <script th:src="@{/bower_components/datatables.net-responsive/js/dataTables.responsive.min.js}"></script>
 <script th:src="@{/bower_components/datatables.net-responsive-bs4/js/responsive.bootstrap4.min.js}"></script>
 <script>
+    /*<![CDATA[*/
     function deleteRow(e) {
         var button = $(e);
         var permissionId = button.attr('permissionId');
@@ -136,5 +137,6 @@
 
 
     });
+    /*]]>*/
 </script>
 </html>

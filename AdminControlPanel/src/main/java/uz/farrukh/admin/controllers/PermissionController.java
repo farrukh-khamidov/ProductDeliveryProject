@@ -2,16 +2,14 @@ package uz.farrukh.admin.controllers;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
+import org.springframework.data.jpa.datatables.mapping.DataTablesInput;
+import org.springframework.data.jpa.datatables.mapping.DataTablesOutput;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
-import uz.farrukh.admin.dto.DatatableOutput;
 import uz.farrukh.admin.services.PermissionService;
-import uz.farrukh.admin.services.PlaceService;
-import uz.farrukh.admin.services.RegionService;
 import uz.farrukh.library.entities.Permission;
-import uz.farrukh.library.entities.Place;
 
 import javax.validation.Valid;
 import java.util.Map;
@@ -30,13 +28,13 @@ public class PermissionController {
 
     @GetMapping("/ajax")
     @ResponseBody
-    public DatatableOutput<Permission> listAjax(@RequestParam Map<String, Object> params, Model model) {
+    public DataTablesOutput<Permission> listAjax(DataTablesInput input) {
         System.out.println("*************************************************Keldi");
-        System.out.println(params);
-        Integer start = Integer.valueOf((String) params.get("start")) ;
-        Integer length = Integer.valueOf((String) params.get("length"));
+        System.out.println(input);
+//        Integer start = input.getStart();
+//        Integer length = input.getLength();
 
-        return permissionService.findAll(start, length);
+        return permissionService.findAll(0, 10);
     }
 
     @GetMapping("/page/{pageNum}/size/{pageSize}")

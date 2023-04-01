@@ -4,11 +4,13 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.context.annotation.ComponentScan;
+import org.springframework.data.jpa.datatables.repository.DataTablesRepositoryFactoryBean;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 @SpringBootApplication
 @ComponentScan(basePackages = {"uz.farrukh.library", "uz.farrukh.admin"})
-@EnableJpaRepositories(basePackages = "uz.farrukh.library.repositories")
+@EnableJpaRepositories(basePackages = "uz.farrukh.library.repositories",
+        repositoryFactoryBeanClass = DataTablesRepositoryFactoryBean.class)
 @EntityScan(basePackages = "uz.farrukh.library.entities")
 public class AdminControlPanelApplication {
 
